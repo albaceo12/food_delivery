@@ -24,7 +24,7 @@ const MyOrders = () => {
       setData((prevData) =>
         prevData.map((prevOrder) => {
           const updatedOrder = response.data.data.find(
-            (newOrder) => newOrder.status === prevOrder.status
+            (newOrder) => newOrder.status !== prevOrder.status
           );
           return updatedOrder ? updatedOrder : prevOrder;
         })
