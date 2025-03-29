@@ -20,7 +20,7 @@ const MyOrders = () => {
             Authorization: `Bearer ${token}`,
           },
         }
-      );     
+      );     console.log(response.data.data.length,data.length)
       setData((prevData) => {
         if (prevData.length === response.data.data.length) {
           prevData.map((prevOrder) => {
