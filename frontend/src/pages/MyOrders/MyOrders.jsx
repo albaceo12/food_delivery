@@ -20,8 +20,16 @@ const MyOrders = () => {
             Authorization: `Bearer ${token}`,
           },
         }
+      );     
+      setData((prevData) =>
+        prevData.map((prevOrder) => {
+          const updatedOrder = response.data.data.find(
+            (newOrder) => newOrder.status === prevOrder.status
+          );
+          return updatedOrder ? updatedOrder : prevOrder;
+        })
       );
-      setData(response.data.data);
+
     } catch (error) {
     } finally {
       setSpinnertrack("final");
