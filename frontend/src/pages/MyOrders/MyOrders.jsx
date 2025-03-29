@@ -21,14 +21,18 @@ const MyOrders = () => {
           },
         }
       );     
-      setData((prevData) =>
-        prevData.map((prevOrder) => {
-          const updatedOrder = response.data.data.find(
-            (newOrder) => newOrder.status !== prevOrder.status
-          );
-          return updatedOrder ? updatedOrder : prevOrder;
-        })
-      );
+      setData((prevData) => {
+        if (prevData.length === response.data.data.length) {
+          prevData.map((prevOrder) => {
+            const updatedOrder = response.data.data.find(
+              (newOrder) => newOrder.status !== prevOrder.status
+            );
+            return updatedOrder ? updatedOrder : prevOrder;
+          });
+        } else {
+          return response.data.data;
+        }
+      });
 
     } catch (error) {
     } finally {
