@@ -21,14 +21,16 @@ const MyOrders = () => {
           },
         }
       );     
-      setData((prevData) => { console.log(response.data.data,data)
+      setData((prevData) => {
         if (prevData.length === response.data.data.length) {
-          prevData.map((prevOrder) => {
-            const updatedOrder = response.data.data.find(
+          const desiredData = prevData.map((prevOrder) => {
+            const updatedOrder = response.data.data.forEach(
               (newOrder) => newOrder.status !== prevOrder.status
             );
             return updatedOrder ? updatedOrder : prevOrder;
           });
+          console.log(desiredData);
+          return desiredData;
         } else {
           return response.data.data;
         }
