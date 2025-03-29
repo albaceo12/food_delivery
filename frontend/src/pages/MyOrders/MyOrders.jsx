@@ -21,7 +21,7 @@ const MyOrders = () => {
           },
         }
       );     
-      setData((prevData) => { console.log(response.data.data.length,data.length)
+      setData((prevData) => { console.log(response.data.data,data)
         if (prevData.length === response.data.data.length) {
           prevData.map((prevOrder) => {
             const updatedOrder = response.data.data.find(
