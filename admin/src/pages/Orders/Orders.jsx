@@ -12,7 +12,7 @@ const Orders = ({ url }) => {
     setSpinnerpage(true);
     try {
       const response = await axios.get(url + "/api/order/list");
-      let Data = [...response.data.data].reverse();
+      let Data = [...response.data.data].reverse();console.log(Data);
       setOrders(pre=>Data);
     } catch (error) {
       toast.error("Error in display");
