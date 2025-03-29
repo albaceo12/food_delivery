@@ -20,8 +20,8 @@ const MyOrders = () => {
             Authorization: `Bearer ${token}`,
           },
         }
-      );     console.log(response.data.data.length,data.length)
-      setData((prevData) => {
+      );     
+      setData((prevData) => { console.log(response.data.data.length,data.length)
         if (prevData.length === response.data.data.length) {
           prevData.map((prevOrder) => {
             const updatedOrder = response.data.data.find(
