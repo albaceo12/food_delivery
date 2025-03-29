@@ -12,7 +12,7 @@ const Orders = ({ url }) => {
     setSpinnerpage(true);
     try {
       const response = await axios.get(url + "/api/order/list");
-      let Data = [...response.data.data].reverse();console.log(Data);
+      let Data = [...response.data.data].reverse();
       setOrders(pre=>Data);
     } catch (error) {
       toast.error("Error in display");
@@ -57,7 +57,7 @@ const Orders = ({ url }) => {
         <div className="spinner-order"></div>
       ) : (
         <div className="order-list">
-          {orders.reverse().map((order, index) => (
+          {orders.map((order, index) => (
             <div key={index} className="order-item">
               <img src={assets.parcel_icon} alt="" />
               <div className="order-address-container">
