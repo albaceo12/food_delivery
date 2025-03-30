@@ -8,7 +8,7 @@ const MyOrders = () => {
   const [spinnertrack, setSpinnertrack] = useState("start");
   const [loadtrack, setLoadtrack] = useState("initate");
   const { url, token } = useContext(StoreContext);
-  const fetchOrders = async () => {
+  const fetchOrders = async (orderId = null) => {
     if (loadtrack === "initate") setSpinnertrack("processing");
     try {
       const response = await axios.post(
@@ -21,21 +21,22 @@ const MyOrders = () => {
           },
         }
       );     
-      setData((prevData) => {
-        if (prevData.length === response.data.data.length) {
-          const desiredData = prevData.map((prevOrder) => {
-            const updatedOrder = response.data.data.find(
-              (newOrder) => newOrder._id === loadtrack
-            );
-            if (updatedOrder._id === prevOrder._id) return updatedOrder;
-
-            return prevOrder;
-          });
-          return desiredData;
-        } else {
-          return response.data.data;
-        }
-      });
+    setData((prevData) => {
+      if (!orderId) {
+        // 🚀 Case 1: Normal fetch (useEffect) → Update everything
+        return response.data.data;
+      } else {
+        // 🚀 Case 2: Updating only one order (trackbtnfunc)
+        return prevData.map((prevOrder) =>
+          prevOrder._id === orderId
+            ? {
+                ...prevOrder,
+                ...response.data.data.find((order) => order._id === orderId),
+              }
+            : prevOrder
+        );
+      }
+    });
 
     } catch (error) {
     } finally {
@@ -46,7 +47,7 @@ const MyOrders = () => {
     if (loadtrack === orderId) return; // Prevent duplicate action
     setLoadtrack((pre) => orderId);
     try {
-      await fetchOrders();
+      await fetchOrders(orderId);
     } catch (error) {
     } finally {
       setLoadtrack("complete");
