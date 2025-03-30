@@ -2,17 +2,15 @@ import React, { useContext, useEffect, useState } from "react";
 import "./MyOrders.css";
 import { StoreContext } from "../../context/StoreContext";
 import { assets } from "../../assets/frontend_assets/assets";
+import { toast } from "react-toastify";
 import axios from "axios";
 const MyOrders = () => {
   const [data, setData] = useState([]);
   const [spinnertrack, setSpinnertrack] = useState("start");
   const [loadtrack, setLoadtrack] = useState("initate");
   const { url, token } = useContext(StoreContext);
-<<<<<<< HEAD
-  const fetchOrders = async (orderId) => {
-=======
+
   const fetchOrders = async (orderId = null) => {
->>>>>>> 3bb13ce1af9f6cbdd0aad62f0cc61517c1071282
     if (loadtrack === "initate") setSpinnertrack("processing");
     try {
       const response = await axios.post(
@@ -24,9 +22,7 @@ const MyOrders = () => {
             Authorization: `Bearer ${token}`,
           },
         }
-<<<<<<< HEAD
       );
-      // console.log(response.data.data);
       if (!orderId) {
         // 🚀 Case 1: Normal fetch (useEffect) → Load all orders
         setData(response.data.data);
@@ -56,38 +52,8 @@ const MyOrders = () => {
           }
         });
       }
-=======
-      );     
-
-    if (!orderId) {
-      // 🚀 Case 1: Normal fetch (useEffect) → Load all orders
-      setData(response.data.data);
-    } else {
-      // 🚀 Case 2: Tracking an order → Remove if missing
-      setData((prevData) => {
-        const updatedOrders = response.data.data;
-        
-        // Check if the tracked order still exists in the new data
-        const orderStillExists = updatedOrders.some((order) => order._id === orderId);
-
-        if (!orderStillExists) {
-          // 🚨 Order was removed from the database → remove it from UI
-          return prevData.filter((order) => order._id !== orderId);
-        } else {
-          // 🔄 Order still exists → Update only that order
-          return prevData.map((prevOrder) =>
-            prevOrder._id === orderId
-              ? {
-                  ...prevOrder,
-                  ...updatedOrders.find((order) => order._id === orderId),
-                }
-              : prevOrder
-          );
-        }
-      });
-    }
->>>>>>> 3bb13ce1af9f6cbdd0aad62f0cc61517c1071282
     } catch (error) {
+      toast.error("Error in displaying orders");
     } finally {
       setSpinnertrack("final");
     }
