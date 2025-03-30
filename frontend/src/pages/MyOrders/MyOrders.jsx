@@ -8,7 +8,7 @@ const MyOrders = () => {
   const [spinnertrack, setSpinnertrack] = useState("start");
   const [loadtrack, setLoadtrack] = useState("initate");
   const { url, token } = useContext(StoreContext);
-  const fetchOrders = async () => {
+  const fetchOrders = async (orderId) => {
     if (loadtrack === "initate") setSpinnertrack("processing");
     try {
       const response = await axios.post(
@@ -21,7 +21,36 @@ const MyOrders = () => {
           },
         }
       );
-      setData(response.data.data);
+      // console.log(response.data.data);
+      if (!orderId) {
+        // 🚀 Case 1: Normal fetch (useEffect) → Load all orders
+        setData(response.data.data);
+      } else {
+        // 🚀 Case 2: Tracking an order → Remove if missing
+        setData((prevData) => {
+          const updatedOrders = response.data.data;
+
+          // Check if the tracked order still exists in the new data
+          const orderStillExists = updatedOrders.some(
+            (order) => order._id === orderId
+          );
+
+          if (!orderStillExists) {
+            // 🚨 Order was removed from the database → remove it from UI
+            return prevData.filter((order) => order._id !== orderId);
+          } else {
+            // 🔄 Order still exists → Update only that order
+            return prevData.map((prevOrder) =>
+              prevOrder._id === orderId
+                ? {
+                    ...prevOrder,
+                    ...updatedOrders.find((order) => order._id === orderId),
+                  }
+                : prevOrder
+            );
+          }
+        });
+      }
     } catch (error) {
     } finally {
       setSpinnertrack("final");
