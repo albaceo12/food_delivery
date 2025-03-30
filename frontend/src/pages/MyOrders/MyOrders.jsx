@@ -21,7 +21,7 @@ const MyOrders = () => {
           },
         }
       );     
-    setData((prevData) => {
+
     if (!orderId) {
       // 🚀 Case 1: Normal fetch (useEffect) → Load all orders
       setData(response.data.data);
@@ -48,7 +48,7 @@ const MyOrders = () => {
           );
         }
       });
-    }
+
 
     } catch (error) {
     } finally {
