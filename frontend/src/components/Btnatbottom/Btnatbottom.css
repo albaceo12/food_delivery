@@ -30,7 +30,9 @@
   align-items: center;
   gap: 5px;
 }
-
+.fixed-cart-button img {
+  width: 36px;
+}
 .fixed-cart-button:hover {
   background-color: #e65c00;
 }
