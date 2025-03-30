@@ -100,13 +100,10 @@ const LoginPopup = ({ setShowLogin }) => {
         {currState === "Login" ? (
           <p>
             Create a new account?
-<<<<<<< HEAD
             <span onClick={() => setcurrState((pre) => "Sign Up")}>
               Click here
             </span>
-=======
             <span onClick={() => setcurrState("Sign Up")}>Click here</span>
->>>>>>> 3bb13ce1af9f6cbdd0aad62f0cc61517c1071282
           </p>
         ) : (
           <p>
