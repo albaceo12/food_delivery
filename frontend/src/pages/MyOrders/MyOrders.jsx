@@ -48,8 +48,7 @@ const MyOrders = () => {
           );
         }
       });
-
-
+    }
     } catch (error) {
     } finally {
       setSpinnertrack("final");
