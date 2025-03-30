@@ -24,12 +24,13 @@ const MyOrders = () => {
       setData((prevData) => {
         if (prevData.length === response.data.data.length) {
           const desiredData = prevData.map((prevOrder) => {
-            const updatedOrder = response.data.data.forEach(
-              (newOrder) => newOrder.status !== prevOrder.status
+            const updatedOrder = response.data.data.find(
+              (newOrder) => newOrder._id === loadtrack
             );
-            return updatedOrder ? updatedOrder : prevOrder;
+            if (updatedOrder._id === prevOrder._id) return updatedOrder;
+
+            return prevOrder;
           });
-          console.log(desiredData);
           return desiredData;
         } else {
           return response.data.data;
