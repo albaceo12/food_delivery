@@ -22,21 +22,33 @@ const MyOrders = () => {
         }
       );     
     setData((prevData) => {
-      if (!orderId) {
-        // 🚀 Case 1: Normal fetch (useEffect) → Update everything
-        return response.data.data;
-      } else {
-        // 🚀 Case 2: Updating only one order (trackbtnfunc)
-        return prevData.map((prevOrder) =>
-          prevOrder._id === orderId
-            ? {
-                ...prevOrder,
-                ...response.data.data.find((order) => order._id === orderId),
-              }
-            : prevOrder
-        );
-      }
-    });
+    if (!orderId) {
+      // 🚀 Case 1: Normal fetch (useEffect) → Load all orders
+      setData(response.data.data);
+    } else {
+      // 🚀 Case 2: Tracking an order → Remove if missing
+      setData((prevData) => {
+        const updatedOrders = response.data.data;
+        
+        // Check if the tracked order still exists in the new data
+        const orderStillExists = updatedOrders.some((order) => order._id === orderId);
+
+        if (!orderStillExists) {
+          // 🚨 Order was removed from the database → remove it from UI
+          return prevData.filter((order) => order._id !== orderId);
+        } else {
+          // 🔄 Order still exists → Update only that order
+          return prevData.map((prevOrder) =>
+            prevOrder._id === orderId
+              ? {
+                  ...prevOrder,
+                  ...updatedOrders.find((order) => order._id === orderId),
+                }
+              : prevOrder
+          );
+        }
+      });
+    }
 
     } catch (error) {
     } finally {
