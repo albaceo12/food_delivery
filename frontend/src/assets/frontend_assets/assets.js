@@ -57,6 +57,7 @@ import selector_icon from "./selector_icon.png";
 import rating_starts from "./rating_starts.png";
 import profile_icon from "./profile_icon.png";
 import bag_icon from "./bag_icon.png";
+import basket_wicon from "./basket_wicon.png";
 import logout_icon from "./logout_icon.png";
 import parcel_icon from "./parcel_icon.png";
 
@@ -80,6 +81,7 @@ export const assets = {
   logout_icon,
   bag_icon,
   parcel_icon,
+  basket_wicon,
 };
 
 export const menu_list = [

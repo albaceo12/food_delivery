@@ -62,7 +62,6 @@ const StoreContextProvider = (props) => {
   const contextValue = {
     food_list,
     margintop,
-    setMargintop,
     cartItems,
     setCartItems,
     isFixed,

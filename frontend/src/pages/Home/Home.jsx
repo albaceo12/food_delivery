@@ -5,6 +5,7 @@ import ExploreMenu from "../../components/ExploreMenu/ExploreMenu";
 import FoodDsiplay from "../../components/FoodDsiplay/FoodDsiplay";
 import AppDownload from "../../components/AppDownload/AppDownload";
 import { StoreContext } from "../../context/StoreContext";
+import Btnatbottom from "../../components/Btnatbottom/Btnatbottom";
 const Home = () => {
   const { menuSectionRef, setIsFixed, appdownRef, margintop } =
     useContext(StoreContext);
@@ -39,6 +40,7 @@ const Home = () => {
       <ExploreMenu category={category} setCategory={setCategory} />
       <FoodDsiplay category={category} />
       <AppDownload />
+      <Btnatbottom />
     </div>
   );
 };
